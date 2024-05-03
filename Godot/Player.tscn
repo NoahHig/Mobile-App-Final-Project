@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bnaeubfpwgdmd"]
+[gd_scene load_steps=35 format=3 uid="uid://bnaeubfpwgdmd"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_xea07"]
 [ext_resource type="Texture2D" uid="uid://dg32vde1sjns5" path="res://Assets/BackwardsWalking.png" id="2_d8mgu"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://kq4itwnuy82c" path="res://Assets/Sword.png" id="4_ejiox"]
 [ext_resource type="Texture2D" uid="uid://ci8bow8608c0w" path="res://Assets/Shield.png" id="5_ml5nx"]
 [ext_resource type="Texture2D" uid="uid://d0i2gpfafgr3a" path="res://Assets/Spear.png" id="6_47q0r"]
+[ext_resource type="Texture2D" uid="uid://f4mtvrgms8lf" path="res://Assets/Hammer.png" id="9_0a5gn"]
+[ext_resource type="Texture2D" uid="uid://w0aa2c17tgmb" path="res://Assets/Axe.png" id="10_3by5y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2gevd"]
 atlas = ExtResource("2_e8iv3")
@@ -173,6 +175,12 @@ height = 32.0
 radius = 3.0
 height = 20.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_by6x5"]
+size = Vector2(20, 13)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_3qyho"]
+points = PackedVector2Array(22, -36, 16, -18, 14, -31)
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(0, -1)
 collision_layer = 3
@@ -221,3 +229,26 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="Spear/SpearArea"]
 position = Vector2(-2, -20)
 polygon = PackedVector2Array(2, -8, 5, 3, -1, 3)
+
+[node name="Hammer" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Hammer"]
+texture = ExtResource("9_0a5gn")
+offset = Vector2(12, -20)
+
+[node name="HammerArea" type="Area2D" parent="Hammer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hammer/HammerArea"]
+position = Vector2(12, -29.5)
+shape = SubResource("RectangleShape2D_by6x5")
+
+[node name="Axe" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Axe"]
+texture = ExtResource("10_3by5y")
+offset = Vector2(12, -20)
+
+[node name="AxeArea" type="Area2D" parent="Axe"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Axe/AxeArea"]
+shape = SubResource("ConvexPolygonShape2D_3qyho")

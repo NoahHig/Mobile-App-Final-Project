@@ -9,10 +9,10 @@ var health := 10
 var iframes := 0
 var knockback := 0
 var knockback_direction := Vector2(0,0)
-var attack := 0
+var attack := 0.0
 var shield := 0
 var cooldown := 0
-var weapon := "spear"
+var weapon := "hammer"
 @onready var playersprite = get_node("PlayerSprite")
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,14 +34,18 @@ func _process(delta):
 		print("dead")
 	if attack != 0:
 		if weapon == "sword":
-			swing()
+			swing_sword()
 			get_node("Sword/Sprite2D").texture = load("res://Assets/Sword.png")
 		elif weapon == "spear":
 			stab()
 			get_node("Spear/Sprite2D").texture = load("res://Assets/Spear.png")
+		elif weapon == "hammer":
+			swing_hammer()
+			get_node("Hammer/Sprite2D").texture = load("res://Assets/Hammer.png")
 	else:
 		get_node("Sword/Sprite2D").texture = null
 		get_node("Spear/Sprite2D").texture = null
+		get_node("Hammer/Sprite2D").texture = null
 	if shield != 0:
 		shield -= 1
 		get_node("Shield").texture = load("res://Assets/Shield.png")
@@ -77,11 +81,13 @@ func read_input():
 		if weapon == "sword":
 			weapon = "spear"
 		elif weapon == "spear":
+			weapon = "hammer"
+		elif weapon == "hammer":
 			weapon = "sword"
 
-func swing():
+func swing_sword():
 	if attack == 20:
-		get_node("Sword").rotate(-2.2)
+		get_node("Sword").rotation = -1.5
 	if attack <= 10:
 		get_node("Sword").rotate(0.22)
 		if get_node("Sword/SwordArea").get_overlapping_bodies():
@@ -90,6 +96,20 @@ func swing():
 				if body.get_parent() == $"../Enemies":
 					body.take_damage(1)
 	attack -= 1
+
+func swing_hammer():
+	if attack == 20:
+		get_node("Hammer").rotation = -1.5
+	if attack <= 10:
+		get_node("Hammer").rotate(0.11)
+		if get_node("Hammer/HammerArea").get_overlapping_bodies():
+			var bodies = get_node("Hammer/HammerArea").get_overlapping_bodies()
+			for body in bodies:
+				print(body)
+				print(body.name)
+				if body.get_parent() == $"../Enemies":
+					body.take_damage(2)
+	attack -= 0.5
 
 func stab():
 	if attack == 20:
