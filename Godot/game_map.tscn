@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dq1dho780pnpn"]
+
+[ext_resource type="Script" path="res://game_map.gd" id="1_vkha2"]
+[ext_resource type="PackedScene" uid="uid://cnybfrrd2hsqc" path="res://level_map.tscn" id="2_lfdqm"]
+[ext_resource type="PackedScene" uid="uid://bnaeubfpwgdmd" path="res://Player.tscn" id="2_pqfdx"]
+[ext_resource type="PackedScene" uid="uid://df5twt6w3i0n3" path="res://HUD.tscn" id="3_vtxch"]
+
+[node name="GameMap" type="Node2D" node_paths=PackedStringArray("player", "hud")]
+process_mode = 1
+script = ExtResource("1_vkha2")
+player = NodePath("Player")
+hud = NodePath("HUD")
+
+[node name="LevelMap" parent="." instance=ExtResource("2_lfdqm")]
+
+[node name="Player" parent="." instance=ExtResource("2_pqfdx")]
+position = Vector2(419, 398)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(2, 2)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="HUD" parent="." instance=ExtResource("3_vtxch")]
