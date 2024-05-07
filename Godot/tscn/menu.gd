@@ -18,3 +18,15 @@ func _on_button_pressed():
 
 func _on_button_2_pressed():
 	pass # Replace with function body.
+
+
+func _on_item_list_item_selected(index):
+	if index ==0:
+		get_parent().get_parent().get_parent().get_node("Player").equipSword()
+	if index ==1:
+		get_parent().get_parent().get_parent().get_node("Player").equipSpear()
+	if index ==2:
+		get_parent().get_parent().get_parent().get_node("Player").equipAxe()
+	if index ==3:
+		get_parent().get_parent().get_parent().get_node("Player").equipHammer()
+	pass # Replace with function body.
