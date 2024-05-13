@@ -32,6 +32,8 @@ func _process(delta):
 	else:
 		iframes -= 1
 	if health <= 0:
+		var player = get_node("../../Player")
+		player.add_score(100)
 		queue_free()
 
 func _physics_process(delta):
