@@ -1,0 +1,139 @@
+[gd_scene load_steps=14 format=3 uid="uid://df5twt6w3i0n3"]
+
+[ext_resource type="Script" path="res://HUD.gd" id="1_p1tfx"]
+[ext_resource type="Texture2D" uid="uid://duan18qc4j238" path="res://Assets/UnderHealth.png" id="2_3bxdg"]
+[ext_resource type="Texture2D" uid="uid://dv0si248o7dyr" path="res://Assets/Healthframe.png" id="2_jmbmk"]
+[ext_resource type="Texture2D" uid="uid://c5l5aehdfsagf" path="res://Assets/Healthbar.png" id="2_v6cpq"]
+[ext_resource type="PackedScene" uid="uid://c5w4flbsg6per" path="res://tscn/menu.tscn" id="5_ogcjn"]
+[ext_resource type="PackedScene" uid="uid://bemw17qflr4ov" path="res://tscn/joystick.tscn" id="6_3sbrc"]
+[ext_resource type="Texture2D" uid="uid://mpkwkmt3hpxv" path="res://Assets/Attack Button.png" id="7_moksy"]
+[ext_resource type="Texture2D" uid="uid://cxuc8u6fwbora" path="res://Assets/Defend Button.png" id="8_qf2xm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bl0g4"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mk8dl"]
+size = Vector2(64, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tgl7g"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hades"]
+size = Vector2(64, 64)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fnf87"]
+size = Vector2(64, 64)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_p1tfx")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 0
+offset_right = 268.0
+offset_bottom = 86.0
+scale = Vector2(2, 2)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_bl0g4")
+
+[node name="HealthGauge" type="TextureProgressBar" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+max_value = 10.0
+value = 3.0
+texture_under = ExtResource("2_3bxdg")
+texture_over = ExtResource("2_jmbmk")
+texture_progress = ExtResource("2_v6cpq")
+texture_progress_offset = Vector2(2, 2)
+
+[node name="Button" type="Button" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Menu"
+icon = SubResource("PlaceholderTexture2D_mk8dl")
+icon_alignment = 1
+
+[node name="Score" type="Label" parent="Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_tgl7g")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" parent="CenterContainer" instance=ExtResource("5_ogcjn")]
+layout_mode = 2
+
+[node name="Joystick" parent="." instance=ExtResource("6_3sbrc")]
+position = Vector2(212, 776)
+scale = Vector2(2, 2)
+
+[node name="Attack" type="TouchScreenButton" parent="."]
+position = Vector2(1638, 704)
+scale = Vector2(4, 2)
+texture_normal = ExtResource("7_moksy")
+texture_pressed = SubResource("PlaceholderTexture2D_hades")
+
+[node name="Label" type="Label" parent="Attack"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -11.5
+offset_right = 25.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Attack"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Sheild" type="TouchScreenButton" parent="."]
+position = Vector2(1640, 836)
+scale = Vector2(4, 2)
+texture_normal = ExtResource("8_qf2xm")
+texture_pressed = SubResource("PlaceholderTexture2D_fnf87")
+
+[node name="Label" type="Label" parent="Sheild"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -11.5
+offset_right = 25.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Shield"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="Sheild" to="." method="_on_sheild_pressed"]
