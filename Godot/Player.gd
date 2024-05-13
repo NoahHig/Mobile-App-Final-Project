@@ -81,7 +81,7 @@ func read_input():
 	elif direction.x != 0:
 		self.rotation = direction.x * PI / 2
 		playersprite.animation = "ForwardsWalking"
-	elif self.rotation < PI/4 && self.rotation > -PI/4:
+	elif self.rotation < PI/2 && self.rotation > -PI/2:
 		playersprite.animation = "BackwardsIdle"
 	else:
 		playersprite.animation = "Idle"
